@@ -217,6 +217,36 @@ margin: 15px auto;
 }
 
 /* Каталог товаров */
+ /*начало внесения изменения */
+ .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.add-to-cart {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.add-to-cart:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+} /*конец изменения */
 .products {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -555,50 +585,26 @@ flex-direction: column;
 </header>
 
     <!-- Главный экран -->
-   <section class="hero">
-    <div class="hero-content">
-        <h1>Качественные автозапчасти для вашего авто</h1>
-        <p>Широкий выбор запчастей от проверенных производителей с гарантией качества и быстрой доставкой</p>
-        <a href="#products" class="btn">Смотреть каталог</a>
-        <a href="#about" class="btn btn-secondary">Узнать больше</a>
+   <section id="products" class="section">
+    <h2 class="section-title">Каталог товаров</h2>
+    <div class="products-grid">
+        <div class="product-card">
+            <h3>Масляный фильтр</h3>
+            <p>Цена: 500 руб.</p>
+            <button class="btn add-to-cart" onclick="addToCart({id: 1, name: 'Масляный фильтр', price: 500})">В корзину</button>
+        </div>
+        <div class="product-card">
+            <h3>Воздушный фильтр</h3>
+            <p>Цена: 800 руб.</p>
+            <button class="btn add-to-cart" onclick="addToCart({id: 2, name: 'Воздушный фильтр', price: 800})">В корзину</button>
+        </div>
+        <div class="product-card">
+            <h3>Тормозные колодки</h3>
+            <p>Цена: 2500 руб.</p>
+            <button class="btn add-to-cart" onclick="addToCart({id: 3, name: 'Тормозные колодки', price: 2500})">В корзину</button>
+        </div>
     </div>
 </section>
-
-    <!-- Каталог товаров -->
-    <section id="products" class="section">
-        <h2 class="section-title">Наш каталог</h2>
-        <div class="products">
-            <div class="product-card">
-                <img src="image/product1.jpg" alt="Тормозные колодки" class="product-img">
-                <div class="product-info">
-                    <h3>Тормозные колодки</h3>
-                    <p class="product-desc">Высококачественные тормозные колодки для всех марок автомобилей. Долговечные и надёжные.</p>
-                    <div class="price">2 500 ₽</div>
-            <button class="add-to-cart">В корзину</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="image/product2.jpg" alt="Масляный фильтр" class="product-img">
-                <div class="product-info">
-                    <h3>Масляный фильтр</h3>
-            <p class="product-desc">Оригинальный масляный фильтр для поддержания чистоты моторного масла.</p>
-            <div class="price">850 ₽</div>
-            <button class="add-to-cart">В корзину</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="image/product3.jpg" alt="Свечи зажигания" class="product-img">
-                <div class="product-info">
-            <h3>Свечи зажигания</h3>
-            <p class="product-desc">Иридиевые свечи зажигания с увеличенным сроком службы и улучшенной производительностью.</p>
-            <div class="price">1 200 ₽</div>
-            <button class="add-to-cart">В корзину</button>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- О компании -->
     <section id="about" class="section about">
@@ -759,4 +765,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 </html>
+
 
