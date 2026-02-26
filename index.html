@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Line — Автомобильные запчасти</title>
+<link rel="icon" type="image/x-icon" href="image/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
+<style>
+ /*кнопка "Главное"*/   
+.back-to-top {
+position: fixed;
+bottom: 30px;
+right: 30px;
+z-index: 1000;
+display: none;
+background: var(--primary);
+color: var(--white);
+border: none;
+padding: 12px 24px;
+border-radius: 50px;
+cursor: pointer;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+transition: all 0.3s ease;
+font-size: 1rem;
+font-weight: 600;
+}
+
+.back-to-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+}
+
+.back-to-top.visible {
+    display: block;
+}
+/* Сброс стилей и базовые настройки */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Arial, sans-serif;
+line-height: 1.6;
+color: #333;
+background-color: #f8f9fa;
+}
+
+/* Переменные CSS */
+:root {
+--primary: #e74c3c;
+--primary-dark: #c0392b;
+--secondary: #2c3e50;
+--light: #ecf0f1;
+--white: #ffffff;
+--gray: #95a5a6;
+--dark-gray: #7f8c8d;
+--shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+--shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.15);
+--transition: all 0.3s ease;
+--border-radius: 8px;
+}
+
+/* Шапка сайта */
+.site-header {
+background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)),
+url('C:/Users/user/Desktop/HTML/image/шапка сайта фото фона.jpg') no-repeat center center/cover;
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 1000;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+max-width: 1200px;
+margin: 0 auto;
+padding: 1rem 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-size: 2.2rem;
+font-weight: 700;
+color: var(--white);
+text-decoration: none;
+display: flex;
+align-items: center;
+}
+
+.logo span {
+color: var(--primary);
+}
+
+.nav-menu {
+display: flex;
+list-style: none;
+gap: 2rem;
+}
+
+.nav-link {
+color: var(--white);
+text-decoration: none;
+font-weight: 500;
+transition: var(--transition);
+position: relative;
+padding: 0.5rem 0;
+}
+
+.nav-link::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 0;
+height: 2px;
+background: var(--white);
+transition: var(--transition);
+}
+
+.nav-link:hover::after {
+width: 100%;
+}
+
+/* Главный экран */
+.hero {
+height: 100vh;
+min-height: 600px;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+color: var(--white);
+margin-top: 80px;
+background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.7)),
+url('image/kk.jpg') no-repeat center center/cover;
+}
+
+.hero-content {
+max-width: 800px;
+padding: 0 20px;
+}
+
+.hero h1 {
+font-size: 3.5rem;
+margin-bottom: 1rem;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+font-size: 1.3rem;
+margin-bottom: 2rem;
+max-width: 600px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.btn {
+display: inline-block;
+background: var(--primary);
+color: var(--white);
+padding: 14px 35px;
+border: none;
+border-radius: 50px;
+text-decoration: none;
+font-weight: 600;
+transition: var(--transition);
+cursor: pointer;
+box-shadow: var(--shadow);
+font-size: 1.1rem;
+}
+
+.btn:hover {
+background: var(--primary-dark);
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+background: transparent;
+border: 2px solid var(--white);
+margin-left: 15px;
+}
+
+.btn-secondary:hover {
+background: rgba(255, 255, 255, 0.1);
+}
+
+/* Разделы */
+.section {
+padding: 5rem 0;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.section-title {
+text-align: center;
+margin-bottom: 3rem;
+font-size: 2.5rem;
+color: var(--secondary);
+position: relative;
+}
+
+.section-title::after {
+content: '';
+display: block;
+width: 100px;
+height: 4px;
+background: var(--primary);
+margin: 15px auto;
+}
+
+/* Каталог товаров */
+.products {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 2.5rem;
+}
+
+.product-card {
+background: var(--white);
+border-radius: var(--border-radius);
+overflow: hidden;
+box-shadow: var(--shadow);
+transition: var(--transition);
+height: 100%;
+display: flex;
+flex-direction: column;
+}
+
+.product-card:hover {
+transform: translateY(-10px);
+box-shadow: var(--shadow-lg);
+}
+
+.product-img {
+width: 100%;
+height: 220px;
+object-fit: cover;
+transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img {
+transform: scale(1.05);
+}
+
+.product-info {
+padding: 1.5rem;
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+}
+
+
+        .product-card h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+            font-size: 1.4rem;
+        }
+
+        .product-desc {
+            color: var(--gray);
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Раздел о компании */
+        .about {
+            background-color: var(--light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            color: var(--dark-gray);
+        }
+
+        .about-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Футер */
+        .footer {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+        .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white);
+    border: none;
+    padding: 14px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    font-size: 1.1rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    background: var(--primary-dark);
+}
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: none; /* Скрыта по умолчанию */
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+}
+
+.back-to-top.visible {
+    display: block; /* Показывается при добавлении класса */
+}
+        </style>
+</head>
+<body>
+    
+<!-- Шапка сайта -->
+<header class="site-header">
+    <div class="header-content">
+        <a href="#top" class="logo">Red<span>Line</span></a>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#top" class="nav-link">Главная</a></li>
+                <li><a href="#products" class="nav-link">Каталог</a></li>
+                <li><a href="#about" class="nav-link">О нас</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <!-- Главный экран -->
+   <section class="hero">
+    <div class="hero-content">
+        <h1>Качественные автозапчасти для вашего авто</h1>
+        <p>Широкий выбор запчастей от проверенных производителей с гарантией качества и быстрой доставкой</p>
+        <a href="#products" class="btn">Смотреть каталог</a>
+        <a href="#about" class="btn btn-secondary">Узнать больше</a>
+    </div>
+</section>
+
+    <!-- Каталог товаров -->
+    <section id="products" class="section">
+        <h2 class="section-title">Наш каталог</h2>
+        <div class="products">
+            <div class="product-card">
+                <img src="image/product1.jpg" alt="Тормозные колодки" class="product-img">
+                <div class="product-info">
+                    <h3>Тормозные колодки</h3>
+                    <p class="product-desc">Высококачественные тормозные колодки для всех марок автомобилей. Долговечные и надёжные.</p>
+                    <div class="price">2 500 ₽</div>
+            <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="image/product2.jpg" alt="Масляный фильтр" class="product-img">
+                <div class="product-info">
+                    <h3>Масляный фильтр</h3>
+            <p class="product-desc">Оригинальный масляный фильтр для поддержания чистоты моторного масла.</p>
+            <div class="price">850 ₽</div>
+            <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="image/product3.jpg" alt="Свечи зажигания" class="product-img">
+                <div class="product-info">
+            <h3>Свечи зажигания</h3>
+            <p class="product-desc">Иридиевые свечи зажигания с увеличенным сроком службы и улучшенной производительностью.</p>
+            <div class="price">1 200 ₽</div>
+            <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О компании -->
+    <section id="about" class="section about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>О нашей компании</h2>
+                <p>Мы работаем на рынке автомобильных запчастей более 10 лет и заслужили доверие тысяч клиентов благодаря высокому качеству товаров и отличному сервису.</p>
+                <p>В нашем ассортименте представлены запчасти для всех популярных марок автомобилей — от бюджетных до премиум‑класса.</p>
+                <a href="#contact" class="btn">Связаться с нами</a>
+            </div>
+            <div class="about-image">
+                <img src="image/about.jpg" alt="О компании Red Line">
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+<section id="contact" class="section">
+    <h2 class="section-title">Контакты</h2>
+    <div class="contact-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+        <div class="contact-info">
+            <div class="contact-item">
+                <h3>Адрес</h3>
+                <p>г. Москва, ул. Автомобильная, д. 15</p>
+            </div>
+            <div class="contact-item">
+                <h3>Телефон</h3>
+                <p><a href="tel:+74951234567" style="color: var(--secondary); text-decoration: none;">+7 (495) 123‑45‑67</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>Email</h3>
+                <p><a href="mailto:info@redline-auto.ru" style="color: var(--secondary); text-decoration: none;">info@redline-auto.ru</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>Режим работы</h3>
+                <p>Пн‑Пт: 9:00–19:00<br>Сб‑Вс: 10:00–18:00</p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 500;">Имя</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--border-radius);">
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 500;">Email</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--border-radius);">
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 500;">Сообщение</label>
+                    <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: var(--border-radius); resize: vertical;"></textarea>
+                </div>
+                <button type="submit" class="btn" style="margin-top: 1.5rem;">Отправить сообщение</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+    <!-- Футер -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>Red Line</h3>
+            <p style="color: #bdc3c7; line-height: 1.6;">Качественные автозапчасти для всех марок автомобилей с гарантией и доставкой.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Навигация</h3>
+            <ul class="footer-links">
+                <li><a href="#top">Главная</a></li>
+                <li><a href="#products">Каталог</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Контакты</h3>
+            <ul class="footer-links">
+                <li>+7 (495) 123-45-67</li>
+                <li>info@redline-auto.ru</li>
+                <li>г. Москва, ул. Автомобильная, д. 15</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Соцсети</h3>
+            <ul class="footer-links">
+                <li><a href="#">ВКонтакте</a></li>
+                <li><a href="#">Telegram</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2024 Red Line. Все права защищены.
+    </div>
+    <body>
+<script>
+// Плавная прокрутка ко всем якорям (включая #top)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+
+        // Обрабатываем случай #top — просто скроллим наверх
+        if (targetId === '#top' || targetId === '#') {
+            scrollToTop();
+            return;
+        }
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const headerHeight = 80; // Высота фиксированной шапки
+            const offsetTop = targetElement.offsetTop - headerHeight;
+
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Функция для кнопки «Главное»
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Показ/скрытие кнопки при прокрутке
+window.addEventListener('scroll', function() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    // Проверяем, что кнопка существует
+    if (!backToTopBtn) return;
+
+    if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+});
+
+// Инициализация: скрываем кнопку при загрузке, если не проскроллили
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn && window.pageYOffset <= 300) {
+        backToTopBtn.classList.remove('visible');
+    }
+});
+</script>
+    </body>
+</footer>
+<button class="back-to-top" onclick="scrollToTop()" id="backToTopBtn">Главное</button>
+</body>
+</script>
+</html>
